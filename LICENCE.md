@@ -13,7 +13,7 @@ This software is available under a **Dual Licensing** model:
 For commercial licensing inquiries, please contact the Technology Transfer Office (TTO) of the University of Bari "Aldo Moro".
 
 
-
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 GNU AFFERO GENERAL PUBLIC LICENSE

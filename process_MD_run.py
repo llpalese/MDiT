@@ -1,3 +1,7 @@
+# Copyright (c) 2026 University of Bari.
+# Licensed under GNU AGPLv3 OR Commercial License. See LICENSE file for details.
+
+
 import MDAnalysis as mda
 from MDAnalysis.analysis import align, rms, pca
 import numpy as np
@@ -11,10 +15,10 @@ warnings.filterwarnings('ignore')
 
 def run_analysis():
     # --- CONFIGURATION ---
-    pdb_ref_file = "protein_run_out.pdb"
-    dcd_files = ["protein_run_out.dcd"] # multiple files for the same run must be arranged in a list: dcd_files = ["your_eq.dcd", "your_prod1.dcd", "your_prod2.dcd"]
+    pdb_ref_file = "protein_run1.pdb" # insert the name of your pdb template
+    dcd_files = ["protein_run1.dcd"] # multiple files for the same run must be arranged in a list: dcd_files = ["your_eq.dcd", "your_prod1.dcd", "your_prod2.dcd"]
     start_frame = 500  # Frames to exclude (minimization/balancing)
-    output_prefix = "MD_run_out"
+    output_prefix = "MD_run1_out" # insert your output prefix
 
     # Verifica file
     for f in [pdb_ref_file] + dcd_files:
@@ -52,6 +56,7 @@ def run_analysis():
     print(f"Coordinates saved in {output_prefix}_coords_ca.npz (Float32, Compressed)")
 
     # --- 3. CORRELATION MATRIX (ON PRODUCTION) ---
+    # uncomment if needed
     print("DCCM calculation on production...")
     mean_pos = prod_coords.mean(axis=0)
     displacements = prod_coords - mean_pos
@@ -81,6 +86,7 @@ def run_analysis():
     rmsf_data = R1.results.rmsf.astype(np.float32)
 
     # --- 6. GRAPHICS ---
+    # comment if not needed
     print("Generating graphs...")    
       
     # RMSD with vertical line on the cutoff

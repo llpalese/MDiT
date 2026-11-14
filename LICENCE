@@ -5,10 +5,13 @@ Copyright (c) 2026 University of Bari "Aldo Moro". All rights reserved.
 This software is available under a **Dual Licensing** model:
 
 1. **Open Source / Research License (GNU AGPLv3):**
-   You may use, study, modify, and distribute this software for free under the terms of the GNU Affero General Public License v3.0 (see the `LICENSE` file for full details). This option applies to open-source projects, academic research, and non-commercial use, provided that any derivative work or network service using this software is also released under the AGPLv3.
+   You may use, study, modify, and distribute this software for free under the terms of the GNU Affero General Public License v3.0 
+(see the `LICENSE` file for full details). This option applies to open-source projects, academic research, and non-commercial use, 
+provided that any derivative work or network service using this software is also released under the AGPLv3.
 
 2. **Commercial License:**
-   If you wish to use or integrate this software into proprietary products, commercial applications, or closed-source services **without** complying with the copyleft and source-disclosure obligations of the AGPLv3, you must obtain a separate commercial license.
+   If you wish to use or integrate this software into proprietary products, commercial applications, or closed-source services **without** 
+complying with the copyleft and source-disclosure obligations of the AGPLv3, you must obtain a separate commercial license.
 
 For commercial licensing inquiries, please contact the Technology Transfer Office (TTO) of the University of Bari "Aldo Moro".
 

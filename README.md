@@ -4,9 +4,9 @@ This repository allows you to reproduce the results of the manuscript xxx.xxx. I
 
 **However, the system is easily portable to any MD dataset.**
 
-The analyses were performed on a Linux system. To use this software, it is recommended to create a conda environment suitable for the machine on which it will be run (a yml file is not provided because incompatibilities often occur between different machines, especially if using a GPU). The environment must contain:
+The analyses were performed on a Linux system. To use this software, it is recommended to create a conda environment suitable for the machine on which it will be run. The environment must contain:
 
-- python 3.11.14 *(This is the version that has been tested, compatible with the version of JAX used; in reality it is not the only possible one)*
+- python 3.11.14 *(this is the version that has been tested)*
 - JAX 
 - Keras
 - Numpy

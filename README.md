@@ -66,6 +66,6 @@ For example, assuming you are in the directory containing train.py (in the appro
 #bash
 python train.py --train_dir your_path/dataset_folder/train_subfolder --val_dir your_path/dataset_folder/validation_subfolder --test_file your_path/dataset_folder/test_subfolder/your_test_file.npz --initial_forecast 10 --forecast_increment 20 --forecast 100
 ```
-
+The script implements a custom loss function and is based on the curriculum learning strategy. Among the various output files, the weights are saved in h5 format.
 
 

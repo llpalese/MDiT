@@ -1,5 +1,23 @@
 # MDiT
 
+This repository allows you to reproduce the results of the manuscript xxx.xxx. In addition to the necessary scripts, a mini-dataset is provided for testing. Obviously, the datasets used to obtain the manuscript's results cannot be reported as such, and this prevents you from obtaining *exactly* the same results. Furthermore, the dcd files in the dataset are not the original raw files used for the analysis: only the protein is reported after alignment to the initial frame. For reference, the initial frame of each MD run has also been saved in pdb format. 
+
+**However, the system is easily portable to any MD dataset.**
+
+The analyses were performed on a Linux system. To use this software, it is recommended to create a conda environment suitable for the machine on which it will be run (a yml file is not provided because incompatibilities often occur between different machines, especially if using a GPU). The environment must contain:
+
+- python 3.11.14 *(This is the version that has been tested, compatible with the version of JAX used; in reality it is not the only possible one)*
+- JAX 
+- Keras
+- Numpy
+- matplotlib
+- MDAnalysis
+- VMD
+
+If you're using the GPU version of JAX, pay particular attention to the CUDA version. Also pay attention to the Python version, as not all versions (especially the most recent ones) are compatible with JAX.
+
+***Important!*** All scripts are written in Python using Keras and pure JAX. Therefore, to avoid conflicts, it is necessary to run all scripts in an environment where only JAX is present, avoiding coexistence with Tensorflow and/or Pytorch. A pure Python dataloader is in the train.py script, which only requires that the training files are properly formatted and placed in a folder system like the one below (i.e. the training, validation and test files must be separated into different folders).
+
 ## How to train the iTransformer
 To train the iTransformer, you need to call the train.py file in the appropriate directory. The required arguments are:
 
@@ -38,6 +56,5 @@ bash
 python train.py --train_dir your_path/dataset_folder/train_subfolder --val_dir your_path/dataset_folder/validation_subfolder --test_file your_path/dataset_folder/test_subfolder/your_test_file.npz --initial_forecast 10 --forecast_increment 20 --forecast 100
 ```
 
-***Important!***
-All scripts are written in Python using Keras and pure JAX. Therefore, to avoid conflicts, it is necessary to run all scripts in a Conda environment where only JAX is present, avoiding coexistence with Tensorflow and/or Pytorch. A pure Python dataloader is in the train.py script, which only requires that the training files are properly formatted and placed in a folder system like the one above.
+
 

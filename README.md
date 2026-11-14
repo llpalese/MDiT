@@ -23,20 +23,20 @@ If you're using the GPU version of JAX, pay particular attention to the CUDA ver
 ## Build of the dataset for the inverted Transformer
 To build a dataset suitable for use with the iT, you need a series of molecular dynamics runs for the protein of interest. Each of these runs is used to obtain an npz file containing a compressed matrix of the Cartesian coordinates of atoms selected to represent the protein (usually aplha-carbon atoms). This is done simply by calling the xxx file in Python:
 ```
-bash
+#bash
 python process_MD_run.py
 ```
 Inside the file must specify the pdb file providing the coordinates, the dcd file(s) for the kinetics, and a prefix for the output files. The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).
 
 
-## How to train the iTransformer
-To train the iTransformer, you need to call the train.py file in the appropriate directory. The required arguments are:
+## How to train the invertd Transformer
+To train the inverted Transformer (iT), you need to call the train.py file in the appropriate directory. The required arguments are:
 
 	--train_dir (a string indicating the path to the directory containing the training data);
 	--val_dir (a string indicating the path to the directory containing the validation data);
 	--test_file (a string indicating the path to the directory containing the test file);
 
-All files must be in npz format. The npz format files are matrices containing the Cartesian coordinates of the selected atoms (usually the alpha carbons, as in this case). The folder containing the training, validation, and test data must contain the subfolder for the training files, the subfolder for the validation files, and the folder containing the individual test file. So the scheme is:
+All files must be in npz format (use the process_MD_run.py script). The npz format files are matrices containing the Cartesian coordinates of the selected atoms (usually the alpha carbons, as in this case). The folder containing the training, validation, and test data must contain the subfolder for the training files, the subfolder for the validation files, and the folder containing the individual test file. So the scheme is:
 
 ```
 dataset_folder/
@@ -61,9 +61,9 @@ The optional arguments are:
 	--batch_size (integer, default 64; batch dimension);
 	--epochs (integer, default 50; epochs for each phase of Curriculum Learning).
 	
-For example, assuming you are in the directory containing train.py (in the approrpiate Conda environment) to launch training digit:
+For example, assuming you are in the directory containing train.py (in the appropriate conda environment) to launch training digit:
 ```
-bash
+#bash
 python train.py --train_dir your_path/dataset_folder/train_subfolder --val_dir your_path/dataset_folder/validation_subfolder --test_file your_path/dataset_folder/test_subfolder/your_test_file.npz --initial_forecast 10 --forecast_increment 20 --forecast 100
 ```
 

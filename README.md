@@ -1,6 +1,8 @@
 # MDiT
 
-This repository allows you to reproduce the results of the manuscript xxx.xxx. In addition to the necessary scripts, a mini-dataset is provided for testing. Obviously, the datasets used to obtain the manuscript's results cannot be reported as such, and this prevents you from obtaining *exactly* the same results. Furthermore, the dcd files in the dataset are not the original raw files used for the analysis: only the protein is reported after alignment to the initial frame. For reference, the initial frame of each MD run has also been saved in pdb format. 
+This repository allows you to reproduce the results of the manuscript xxx.xxx. This work introduces an AI system based on an inverted Transformer architecture and applies it to the problem of determining the set of three-dimensional structures a protein can access and their statistical weights. After being trained on a MD dataset of a particular protein, this neural network is able to directly generate physically plausible protein conformations similar to those obtained through both molecular dynamics and experimentally. The ordered sequence of conformations obtained as output from the neural network rapidly converges toward the most populated regions of the protein's conformational landscape, suggesting that the system may have learned not only the protein's three-dimensional organization but also the thermodynamic weights of the various achievable conformations. These characteristics, combined with its simplicity and low computational load, make this variant of the Transformer an ideal candidate for the development of systems capable of performing generative molecular dynamics.
+
+The system was trained on the DHFR of *Escherichia coli*.
 
 **However, the system is easily portable to any MD dataset.**
 
@@ -17,6 +19,10 @@ The analyses were performed on a Linux system. To use this software, it is recom
 If you're using the GPU version of JAX, pay particular attention to the CUDA version. Also pay attention to the Python version, as not all versions (especially the most recent ones) are compatible with JAX.
 
 ***Important!*** All scripts are written in Python using Keras and pure JAX. Therefore, to avoid conflicts, it is necessary to run all scripts in an environment where only JAX is present, avoiding coexistence with Tensorflow and/or Pytorch. A pure Python dataloader is in the train.py script, which only requires that the training files are properly formatted and placed in a folder system like the one below (i.e. the training, validation and test files must be separated into different folders).
+
+## Build of the dataset for the inverted Transformer
+To build a dataset suitable for use with the iT, you need a series of molecular dynamics runs for the protein of interest. Each of these runs is used to obtain an npz file containing a compressed information matrix of the atoms selected to represent the protein. This is done simply by calling the xxx file in Python (inside the file must specify the pdb file providing the coordinates, the dcd file(s) for the kinetics, and a prefix for the output files). The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).
+
 
 ## How to train the iTransformer
 To train the iTransformer, you need to call the train.py file in the appropriate directory. The required arguments are:

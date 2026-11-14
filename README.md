@@ -21,7 +21,12 @@ If you're using the GPU version of JAX, pay particular attention to the CUDA ver
 ***Important!*** All scripts are written in Python using Keras and pure JAX. Therefore, to avoid conflicts, it is necessary to run all scripts in an environment where only JAX is present, avoiding coexistence with Tensorflow and/or Pytorch. A pure Python dataloader is in the train.py script, which only requires that the training files are properly formatted and placed in a folder system like the one below (i.e. the training, validation and test files must be separated into different folders).
 
 ## Build of the dataset for the inverted Transformer
-To build a dataset suitable for use with the iT, you need a series of molecular dynamics runs for the protein of interest. Each of these runs is used to obtain an npz file containing a compressed information matrix of the atoms selected to represent the protein. This is done simply by calling the xxx file in Python (inside the file must specify the pdb file providing the coordinates, the dcd file(s) for the kinetics, and a prefix for the output files). The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).
+To build a dataset suitable for use with the iT, you need a series of molecular dynamics runs for the protein of interest. Each of these runs is used to obtain an npz file containing a compressed matrix of the Cartesian coordinates of atoms selected to represent the protein (usually aplha-carbon atoms). This is done simply by calling the xxx file in Python:
+```
+bash
+python process_MD_run.py
+```
+Inside the file must specify the pdb file providing the coordinates, the dcd file(s) for the kinetics, and a prefix for the output files. The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).
 
 
 ## How to train the iTransformer

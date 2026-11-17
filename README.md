@@ -8,7 +8,7 @@ The system was trained on the DHFR of *Escherichia coli*.
 
 The analyses were performed on a Linux system. To use this software, it is recommended to create a conda environment suitable for the machine on which it will be run. The environment must contain:
 
-- python 3.11.14 *(this is the version that has been tested)*
+- Python 3.11.14 *(this is the version that has been tested)*
 - JAX 
 - Keras
 - Numpy
@@ -16,28 +16,18 @@ The analyses were performed on a Linux system. To use this software, it is recom
 - MDAnalysis
 - VMD
 
-If you're using the GPU version of JAX, pay particular attention to the CUDA version. Also pay attention to the Python version, as not all versions (especially the most recent ones) are compatible with JAX.
+If you're using the GPU version of JAX, pay particular attention to the CUDA version. Also pay attention to the Python version, as not all versions (especially the most recent ones) are compatible with JAX. Python 3.11.14 is the version that has been tested.
 
-***Important!*** All scripts are written in Python using Keras and pure JAX. Therefore, to avoid conflicts, it is necessary to run all scripts in an environment where only JAX is present, avoiding coexistence with Tensorflow and/or Pytorch. A pure Python dataloader is in the train.py script, which only requires that the training files are properly formatted and placed in a folder system like the one below (i.e. the training, validation and test files must be separated into different folders).
+>[!Note]
+> All scripts are written in Python using Keras and pure JAX. Therefore, to avoid conflicts, it is recommended to use an environment where only JAX is present. A pure Python dataloader is in the `train.py` script, which only requires that the training files are properly formatted and placed in a folder system like the one below (i.e. the training, validation and test files must be separated into different folders).
 
 ## Build of the dataset for the inverted Transformer
-To build a dataset suitable for use with the iT, you need a series of molecular dynamics runs for the protein of interest. Each of these runs is used to obtain an npz file containing a compressed matrix of the Cartesian coordinates of atoms selected to represent the protein (usually aplha-carbon atoms). This is done simply by calling the xxx file in Python:
-```
-#bash
+To build a dataset suitable for use with the iT, you need a series of molecular dynamics runs for the protein of interest. Each of these runs is used to obtain an `.npz` file containing a compressed matrix of the Cartesian coordinates of atoms selected to represent the protein (usually aplha-carbon atoms). This is done simply by calling the `process_MD_run.py` file in Python:
+```bash
 python process_MD_run.py
 ```
-Inside the file must specify the pdb file providing the coordinates, the dcd file(s) for the kinetics, and a prefix for the output files. The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).
-
-
-## How to train the invertd Transformer
-To train the inverted Transformer (iT), you need to call the train.py file in the appropriate directory. The required arguments are:
-
-	--train_dir (a string indicating the path to the directory containing the training data);
-	--val_dir (a string indicating the path to the directory containing the validation data);
-	--test_file (a string indicating the path to the directory containing the test file);
-
-All files must be in npz format (use the process_MD_run.py script). The npz format files are matrices containing the Cartesian coordinates of the selected atoms (usually the alpha carbons, as in this case). The folder containing the training, validation, and test data must contain the subfolder for the training files, the subfolder for the validation files, and the folder containing the individual test file. So the scheme is:
-
+Inside the file must specify the pdb file providing the coordinates, the dcd file(s) for the kinetics, and a prefix for the output files. The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).  
+The MD files must then be arranged according to the scheme shown below.  
 ```
 dataset_folder/
 ├── train_subfolder/                  
@@ -51,7 +41,19 @@ dataset_folder/
 └── test_subfolder/
     └── your_test_file.npz   
 ```
-	                         
+	                    
+
+
+## How to train the invertd Transformer
+To train the inverted Transformer (iT), you need to call the train.py file in the appropriate directory. The required arguments are:
+
+	--train_dir (a string indicating the path to the directory containing the training data);
+	--val_dir (a string indicating the path to the directory containing the validation data);
+	--test_file (a string indicating the path to the directory containing the test file);
+
+All files must be in npz format (use the process_MD_run.py script). The npz format files are matrices containing the Cartesian coordinates of the selected atoms (usually the alpha carbons, as in this case). The folder containing the training, validation, and test data must contain the subfolder for the training files, the subfolder for the validation files, and the folder containing the individual test file. So the scheme is:
+
+     
 The optional arguments are: 
 
 	--lookback (integer, default 60; the number of MD steps that is used as input);

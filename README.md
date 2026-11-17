@@ -8,7 +8,7 @@ The system was trained on the DHFR of *Escherichia coli*.
 
 The analyses were performed on a Linux system. To use this software, it is recommended to create a conda environment suitable for the machine on which it will be run. The environment must contain:
 
-- Python 3.11.14 *(this is the version that has been tested)*
+- Python
 - JAX 
 - Keras
 - Numpy
@@ -26,7 +26,7 @@ To build a dataset suitable for use with the iT, you need a series of molecular 
 ```bash
 python process_MD_run.py
 ```
-Inside the file must specify the pdb file providing the coordinates, the dcd file(s) for the kinetics, and a prefix for the output files. The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).  
+Inside the file must specify the `.pdb` file providing the coordinates, the `.dcd` file(s) for the kinetics, and a prefix for the output files. The same script produces the RMSS, RMSF, DCCD, and PCA of the MD run (comment the relevant sections if you do not want this type of output).  
 The MD files must then be arranged according to the scheme shown below.  
 ```
 dataset_folder/
@@ -41,17 +41,15 @@ dataset_folder/
 └── test_subfolder/
     └── your_test_file.npz   
 ```
-	                    
-
 
 ## How to train the invertd Transformer
-To train the inverted Transformer (iT), you need to call the train.py file in the appropriate directory. The required arguments are:
+To train the inverted Transformer (iT), you need to call the `train.py` file in the appropriate directory. The required arguments are:
 
 	--train_dir (a string indicating the path to the directory containing the training data);
 	--val_dir (a string indicating the path to the directory containing the validation data);
 	--test_file (a string indicating the path to the directory containing the test file);
 
-All files must be in npz format (use the process_MD_run.py script). The npz format files are matrices containing the Cartesian coordinates of the selected atoms (usually the alpha carbons, as in this case). The folder containing the training, validation, and test data must contain the subfolder for the training files, the subfolder for the validation files, and the folder containing the individual test file. So the scheme is:
+All files must be in `.npz` format (use the `process_MD_run.py` script). The `.npz` format files are matrices containing the Cartesian coordinates of the selected atoms (usually the alpha carbons, as in this case). The folder containing the training, validation, and test data must contain the subfolder for the training files, the subfolder for the validation files, and the folder containing the individual test file.
 
      
 The optional arguments are: 
@@ -63,11 +61,10 @@ The optional arguments are:
 	--batch_size (integer, default 64; batch dimension);
 	--epochs (integer, default 50; epochs for each phase of Curriculum Learning).
 	
-For example, assuming you are in the directory containing train.py (in the appropriate conda environment) to launch training digit:
-```
-#bash
+For example, assuming you are in the directory containing `train.py` (in the appropriate conda environment) to launch training digit:
+```bash
 python train.py --train_dir your_path/dataset_folder/train_subfolder --val_dir your_path/dataset_folder/validation_subfolder --test_file your_path/dataset_folder/test_subfolder/your_test_file.npz --initial_forecast 10 --forecast_increment 20 --forecast 100
 ```
-The script implements a custom loss function and is based on the curriculum learning strategy. Among the various output files, the weights are saved in h5 format.
+The script implements a custom loss function and is based on the curriculum learning strategy. Among the various output files, the weights are saved in `h5` format.
 
 

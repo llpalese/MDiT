@@ -67,4 +67,12 @@ python train.py --train_dir your_path/dataset_folder/train_subfolder --val_dir y
 ```
 The script implements a custom loss function and is based on the curriculum learning strategy. Among the various output files, the weights are saved in `h5` format.
 
+>[!Note]
+>This site is still under construction!  
+
+## Contributing
+
+Thank you for your interest in this project! Please note that we are currently unable to accept external contributions, pull requests, or code edits. 
+
+You are still very welcome to open issues for bug reports, questions, or general feedback.
 
